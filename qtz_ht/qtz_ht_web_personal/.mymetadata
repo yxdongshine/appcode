@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="qtz_ht_web_personal"
+  id="myeclipse.1472222491379"
+  context-root="/qtz_ht_web_personal"
+  j2ee-spec="1.7"
+  archive="qtz_ht_web_personal.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+
