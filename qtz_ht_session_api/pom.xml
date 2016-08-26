@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.qtz.seaAmoy</groupId>
+    <artifactId>qtz_ht</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>qtz_ht_session_api</artifactId>
+  <name>qtz_ht_session_api</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+  	<dependency>
+     	<groupId>com.qtz.dongmeng</groupId>
+  		<artifactId>qtz_dm_core</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  		<type>jar</type>
+    </dependency>
+     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- 极光推送 -->
+    <dependency>
+    	<groupId>cn.jpush.api</groupId>
+    	<artifactId>jpush-client</artifactId>
+    	<version>3.1.3</version>
+	</dependency>
+  </dependencies>
+</project>
