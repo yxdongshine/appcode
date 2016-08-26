@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.good.dao.HtGoodLogDao" >
+<!-- Result Map com.qtz.ht.good.vo.HtGoodLog-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.good.vo.HtGoodLog" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="good_id"  property="goodId"/> 
+	 <result column="operat_action"  property="operatAction"/> 
+	 <result column="operate_content"  property="operateContent"/> 
+	 <result column="voucher_addr"  property="voucherAddr"/> 
+	 <result column="operat_explain"  property="operatExplain"/> 
+	 <result column="operator_id"  property="operatorId"/> 
+	 <result column="operator_name"  property="operatorName"/> 
+	 <result column="opera_type"  property="operaType"/> 
+	 <result column="opera_time"  property="operaTime"/> 
+	
+</resultMap>
+
+<!-- ht_good_log table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.good_id,t.operat_action,t.operate_content,t.voucher_addr,t.operat_explain,t.operator_id,t.operator_name,t.opera_type,t.opera_time
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="goodId != null  ">
+		 and t.good_id=#{goodId}
+	</if>
+	<if test="operatAction != null  ">
+		 and t.operat_action=#{operatAction}
+	</if>
+	<if test="operateContent != null  and operateContent != '' ">
+		 and t.operate_content=#{operateContent}
+	</if>
+	<if test="voucherAddr != null  and voucherAddr != '' ">
+		 and t.voucher_addr=#{voucherAddr}
+	</if>
+	<if test="operatExplain != null  and operatExplain != '' ">
+		 and t.operat_explain=#{operatExplain}
+	</if>
+	<if test="operatorId != null  ">
+		 and t.operator_id=#{operatorId}
+	</if>
+	<if test="operatorName != null  and operatorName != '' ">
+		 and t.operator_name=#{operatorName}
+	</if>
+	<if test="operaType != null  ">
+		 and t.opera_type=#{operaType}
+	</if>
+	<if test="operaTime != null  ">
+		 and t.opera_time=#{operaTime}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_good_log(dm_id,good_id,operat_action,operate_content,voucher_addr,operat_explain,operator_id,operator_name,opera_type,opera_time)
+ values(#{dmId},#{goodId},#{operatAction},#{operateContent},#{voucherAddr},#{operatExplain},#{operatorId},#{operatorName},#{operaType},#{operaTime})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_good_log(dm_id,good_id,operat_action,operate_content,voucher_addr,operat_explain,operator_id,operator_name,opera_type,opera_time) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.goodId},#{item.operatAction},#{item.operateContent},#{item.voucherAddr},#{item.operatExplain},#{item.operatorId},#{item.operatorName},#{item.operaType},#{item.operaTime}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_good_log where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_good_log where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_good_log where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_good_log set good_id=#{goodId},operat_action=#{operatAction},operate_content=#{operateContent},voucher_addr=#{voucherAddr},operat_explain=#{operatExplain},operator_id=#{operatorId},operator_name=#{operatorName},opera_type=#{operaType},opera_time=#{operaTime} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_good_log set 
+	<trim  suffixOverrides="," >
+	<if test="goodId != null  ">
+		good_id=#{goodId},
+	</if>
+	<if test="operatAction != null  ">
+		operat_action=#{operatAction},
+	</if>
+	<if test="operateContent != null  and operateContent != '' ">
+		operate_content=#{operateContent},
+	</if>
+	<if test="voucherAddr != null  and voucherAddr != '' ">
+		voucher_addr=#{voucherAddr},
+	</if>
+	<if test="operatExplain != null  and operatExplain != '' ">
+		operat_explain=#{operatExplain},
+	</if>
+	<if test="operatorId != null  ">
+		operator_id=#{operatorId},
+	</if>
+	<if test="operatorName != null  and operatorName != '' ">
+		operator_name=#{operatorName},
+	</if>
+	<if test="operaType != null  ">
+		opera_type=#{operaType},
+	</if>
+	<if test="operaTime != null  ">
+		opera_time=#{operaTime},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户商品操作记录 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_good_log t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户商品操作记录 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_good_log t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商户商品操作记录列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_good_log t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户商品操作记录列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_good_log t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

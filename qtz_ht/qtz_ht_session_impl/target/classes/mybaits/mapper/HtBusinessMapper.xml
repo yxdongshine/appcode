@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.user.dao.HtBusinessDao" >
+<!-- Result Map com.qtz.ht.user.vo.HtBusiness-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.user.vo.HtBusiness" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="simple_name"  property="simpleName"/> 
+	 <result column="full_name"  property="fullName"/> 
+	 <result column="mobile_phone"  property="mobilePhone"/> 
+	 <result column="trademark"  property="trademark"/> 
+	 <result column="sett_discount"  property="settDiscount"/> 
+	 <result column="reco_cycle"  property="recoCycle"/> 
+	 <result column="mana_char"  property="manaChar"/> 
+	 <result column="merc_province"  property="mercProvince"/> 
+	 <result column="merc_city"  property="mercCity"/> 
+	 <result column="merc_county"  property="mercCounty"/> 
+	 <result column="merc_town"  property="mercTown"/> 
+	 <result column="merc_addr"  property="mercAddr"/> 
+	 <result column="set_up_time"  property="setUpTime"/> 
+	 <result column="merc_name"  property="mercName"/> 
+	 <result column="legal_person"  property="legalPerson"/> 
+	 <result column="legal_id_card"  property="legalIdCard"/> 
+	 <result column="legal_province"  property="legalProvince"/> 
+	 <result column="legal_city"  property="legalCity"/> 
+	 <result column="legal_county"  property="legalCounty"/> 
+	 <result column="legal_town"  property="legalTown"/> 
+	 <result column="legal_addr"  property="legalAddr"/> 
+	 <result column="idcard_before"  property="idcardBefore"/> 
+	 <result column="idcard_after"  property="idcardAfter"/> 
+	 <result column="busi_license"  property="busiLicense"/> 
+	 <result column="is_shield"  property="isShield"/> 
+	 <result column="is_frozen"  property="isFrozen"/>
+	 <result column="crtime"  property="crtime"/>
+	
+</resultMap>
+
+<!-- ht_business table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.simple_name,t.full_name,t.mobile_phone,t.trademark,t.sett_discount,t.reco_cycle,t.mana_char,t.merc_province,t.merc_city,t.merc_county,t.merc_town,t.merc_addr,t.set_up_time,t.merc_name,t.legal_person,t.legal_id_card,t.legal_province,t.legal_city,t.legal_county,t.legal_town,t.legal_addr,t.idcard_before,t.idcard_after,t.busi_license,t.is_shield,t.is_frozen,t.crtime
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="simpleName != null  and simpleName != '' ">
+		 and t.simple_name like CONCAT('%',#{simpleName},'%')
+	</if>
+	<if test="fullName != null  and fullName != '' ">
+		 and t.full_name like CONCAT('%',#{fullName},'%')
+	</if>
+	<if test="startTime != null  and startTime != '' ">
+		 and t.crtime <![CDATA[ >=]]> #{startTime}
+	</if>
+	<if test="endTime != null  and endTime != '' ">
+		 and t.crtime <![CDATA[ <=]]> #{endTime}
+	</if>
+	<if test="mobilePhone != null  and mobilePhone != '' ">
+		 and t.mobile_phone=#{mobilePhone}
+	</if>
+	<if test="trademark != null  and trademark != '' ">
+		 and t.trademark=#{trademark}
+	</if>
+	<if test="settDiscount != null  ">
+		 and t.sett_discount=#{settDiscount}
+	</if>
+	<if test="recoCycle != null  ">
+		 and t.reco_cycle=#{recoCycle}
+	</if>
+	<if test="manaChar != null  and manaChar != '' ">
+		 and t.mana_char=#{manaChar}
+	</if>
+	<if test="mercProvince != null  ">
+		 and t.merc_province=#{mercProvince}
+	</if>
+	<if test="mercCity != null  ">
+		 and t.merc_city=#{mercCity}
+	</if>
+	<if test="mercCounty != null  ">
+		 and t.merc_county=#{mercCounty}
+	</if>
+	<if test="mercTown != null  ">
+		 and t.merc_town=#{mercTown}
+	</if>
+	<if test="mercAddr != null  and mercAddr != '' ">
+		 and t.merc_addr=#{mercAddr}
+	</if>
+	<if test="setUpTime != null  and setUpTime != '' ">
+		 and t.set_up_time=#{setUpTime}
+	</if>
+	<if test="mercName != null  and mercName != '' ">
+		 and t.merc_name=#{mercName}
+	</if>
+	<if test="legalPerson != null  and legalPerson != '' ">
+		 and t.legal_person=#{legalPerson}
+	</if>
+	<if test="legalIdCard != null  and legalIdCard != '' ">
+		 and t.legal_id_card=#{legalIdCard}
+	</if>
+	<if test="legalProvince != null  ">
+		 and t.legal_province=#{legalProvince}
+	</if>
+	<if test="legalCity != null  ">
+		 and t.legal_city=#{legalCity}
+	</if>
+	<if test="legalCounty != null  ">
+		 and t.legal_county=#{legalCounty}
+	</if>
+	<if test="legalTown != null  ">
+		 and t.legal_town=#{legalTown}
+	</if>
+	<if test="legalAddr != null  and legalAddr != '' ">
+		 and t.legal_addr=#{legalAddr}
+	</if>
+	<if test="idcardBefore != null  and idcardBefore != '' ">
+		 and t.idcard_before=#{idcardBefore}
+	</if>
+	<if test="idcardAfter != null  and idcardAfter != '' ">
+		 and t.idcard_after=#{idcardAfter}
+	</if>
+	<if test="busiLicense != null  and busiLicense != '' ">
+		 and t.busi_license=#{busiLicense}
+	</if>
+	<if test="isShield != null  ">
+		 and t.is_shield=#{isShield}
+	</if>
+	<if test="isFrozen != null  ">
+		 and t.is_frozen=#{isFrozen}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_business(dm_id,simple_name,full_name,mobile_phone,trademark,sett_discount,reco_cycle,mana_char,merc_province,merc_city,merc_county,merc_town,merc_addr,set_up_time,merc_name,legal_person,legal_id_card,legal_province,legal_city,legal_county,legal_town,legal_addr,idcard_before,idcard_after,busi_license,is_shield,is_frozen,crtime)
+ values(#{dmId},#{simpleName},#{fullName},#{mobilePhone},#{trademark},#{settDiscount},#{recoCycle},#{manaChar},#{mercProvince},#{mercCity},#{mercCounty},#{mercTown},#{mercAddr},#{setUpTime},#{mercName},#{legalPerson},#{legalIdCard},#{legalProvince},#{legalCity},#{legalCounty},#{legalTown},#{legalAddr},#{idcardBefore},#{idcardAfter},#{busiLicense},#{isShield},#{isFrozen},#{crtime})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_business(dm_id,simple_name,full_name,mobile_phone,trademark,sett_discount,reco_cycle,mana_char,merc_province,merc_city,merc_county,merc_town,merc_addr,set_up_time,merc_name,legal_person,legal_id_card,legal_province,legal_city,legal_county,legal_town,legal_addr,idcard_before,idcard_after,busi_license,is_shield,is_frozen,crtime) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.simpleName},#{item.fullName},#{item.mobilePhone},#{item.trademark},#{item.settDiscount},#{item.recoCycle},#{item.manaChar},#{item.mercProvince},#{item.mercCity},#{item.mercCounty},#{item.mercTown},#{item.mercAddr},#{item.setUpTime},#{item.mercName},#{item.legalPerson},#{item.legalIdCard},#{item.legalProvince},#{item.legalCity},#{item.legalCounty},#{item.legalTown},#{item.legalAddr},#{item.idcardBefore},#{item.idcardAfter},#{item.busiLicense},#{item.isShield},#{item.isFrozen},#{item.crtime}
+	  )
+	  </foreach>
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_business where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.Long">
+	delete 	 from ht_business where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_business where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_business set simple_name=#{simpleName},full_name=#{fullName},mobile_phone=#{mobilePhone},trademark=#{trademark},sett_discount=#{settDiscount},reco_cycle=#{recoCycle},mana_char=#{manaChar},merc_province=#{mercProvince},merc_city=#{mercCity},merc_county=#{mercCounty},merc_town=#{mercTown},merc_addr=#{mercAddr},set_up_time=#{setUpTime},merc_name=#{mercName},legal_person=#{legalPerson},legal_id_card=#{legalIdCard},legal_province=#{legalProvince},legal_city=#{legalCity},legal_county=#{legalCounty},legal_town=#{legalTown},legal_addr=#{legalAddr},idcard_before=#{idcardBefore},idcard_after=#{idcardAfter},busi_license=#{busiLicense},is_shield=#{isShield},is_frozen=#{isFrozen},crtime=#{crtime} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_business set 
+	<trim  suffixOverrides="," >
+	<if test="simpleName != null  and simpleName != '' ">
+		simple_name=#{simpleName},
+	</if>
+	<if test="fullName != null  and fullName != '' ">
+		full_name=#{fullName},
+	</if>
+	<if test="mobilePhone != null  and mobilePhone != '' ">
+		mobile_phone=#{mobilePhone},
+	</if>
+	<if test="trademark != null  and trademark != '' ">
+		trademark=#{trademark},
+	</if>
+	<if test="settDiscount != null  ">
+		sett_discount=#{settDiscount},
+	</if>
+	<if test="recoCycle != null  ">
+		reco_cycle=#{recoCycle},
+	</if>
+	<if test="manaChar != null  and manaChar != '' ">
+		mana_char=#{manaChar},
+	</if>
+	<if test="mercProvince != null  ">
+		merc_province=#{mercProvince},
+	</if>
+	<if test="mercCity != null  ">
+		merc_city=#{mercCity},
+	</if>
+	<if test="mercCounty != null  ">
+		merc_county=#{mercCounty},
+	</if>
+	<if test="mercTown != null  ">
+		merc_town=#{mercTown},
+	</if>
+	<if test="mercAddr != null  and mercAddr != '' ">
+		merc_addr=#{mercAddr},
+	</if>
+	<if test="setUpTime != null  and setUpTime != '' ">
+		set_up_time=#{setUpTime},
+	</if>
+	<if test="mercName != null  and mercName != '' ">
+		merc_name=#{mercName},
+	</if>
+	<if test="legalPerson != null  and legalPerson != '' ">
+		legal_person=#{legalPerson},
+	</if>
+	<if test="legalIdCard != null  and legalIdCard != '' ">
+		legal_id_card=#{legalIdCard},
+	</if>
+	<if test="legalProvince != null  ">
+		legal_province=#{legalProvince},
+	</if>
+	<if test="legalCity != null  ">
+		legal_city=#{legalCity},
+	</if>
+	<if test="legalCounty != null  ">
+		legal_county=#{legalCounty},
+	</if>
+	<if test="legalTown != null  ">
+		legal_town=#{legalTown},
+	</if>
+	<if test="legalAddr != null  and legalAddr != '' ">
+		legal_addr=#{legalAddr},
+	</if>
+	<if test="idcardBefore != null  and idcardBefore != '' ">
+		idcard_before=#{idcardBefore},
+	</if>
+	<if test="idcardAfter != null  and idcardAfter != '' ">
+		idcard_after=#{idcardAfter},
+	</if>
+	<if test="busiLicense != null  and busiLicense != '' ">
+		busi_license=#{busiLicense},
+	</if>
+	<if test="isShield != null  ">
+		is_shield=#{isShield},
+	</if>
+	<if test="isFrozen != null  ">
+		is_frozen=#{isFrozen},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户信息表 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_business t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户信息表 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_business t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商户信息表列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_business t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户信息表列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_business t 
+	<include refid="Example_Where_Clause"/>
+</select>
+<!-- 查询商家信息Id集合商家信息列表 -->
+<select id="findListByBusinessesId" resultMap="BaseResultMap" parameterType="java.util.List">
+	select <include refid="Base_Column_List"/> 
+	  from ht_business t where t.dm_id in 
+	<foreach item="idItem" collection="array" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach>
+</select>
+</mapper>

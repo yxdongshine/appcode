@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.good.dao.HtGoodCateDao" >
+<!-- Result Map com.qtz.ht.good.vo.HtGoodCate-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.good.vo.HtGoodCate" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="cata_name"  property="cataName"/> 
+	 <result column="cata_describe"  property="cataDescribe"/> 
+	 <result column="pid"  property="pid"/> 
+	 <result column="sort"  property="sort"/> 
+	 <result column="icon"  property="icon"/> 
+	 <result column="cata_level"  property="cataLevel"/> 
+	 <result column="status"  property="status"/> 
+	 <result column="cruser"  property="cruser"/> 
+	 <result column="crtime"  property="crtime"/> 
+	
+</resultMap>
+
+<!-- ht_good_cate table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.cata_name,t.cata_describe,t.pid,t.sort,t.icon,t.cata_level,t.status,t.cruser,t.crtime
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="cataName != null  and cataName != '' ">
+		 and t.cata_name=#{cataName}
+	</if>
+	<if test="cataDescribe != null  and cataDescribe != '' ">
+		 and t.cata_describe=#{cataDescribe}
+	</if>
+	<if test="pid != null  ">
+		 and t.pid=#{pid}
+	</if>
+	<if test="sort != null  ">
+		 and t.sort=#{sort}
+	</if>
+	<if test="icon != null  and icon != '' ">
+		 and t.icon=#{icon}
+	</if>
+	<if test="cataLevel != null  ">
+		 and t.cata_level=#{cataLevel}
+	</if>
+	<if test="status != null  ">
+		 and t.status=#{status}
+	</if>
+	<if test="cruser != null  ">
+		 and t.cruser=#{cruser}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_good_cate(dm_id,cata_name,cata_describe,pid,sort,icon,cata_level,status,cruser,crtime)
+ values(#{dmId},#{cataName},#{cataDescribe},#{pid},#{sort},#{icon},#{cataLevel},#{status},#{cruser},#{crtime})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_good_cate(dm_id,cata_name,cata_describe,pid,sort,icon,cata_level,status,cruser,crtime) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.cataName},#{item.cataDescribe},#{item.pid},#{item.sort},#{item.icon},#{item.cataLevel},#{item.status},#{item.cruser},#{item.crtime}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_good_cate where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_good_cate where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_good_cate where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_good_cate set cata_name=#{cataName},cata_describe=#{cataDescribe},pid=#{pid},sort=#{sort},icon=#{icon},cata_level=#{cataLevel},status=#{status},cruser=#{cruser},crtime=#{crtime} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_good_cate set 
+	<trim  suffixOverrides="," >
+	<if test="cataName != null  and cataName != '' ">
+		cata_name=#{cataName},
+	</if>
+	<if test="cataDescribe != null  and cataDescribe != '' ">
+		cata_describe=#{cataDescribe},
+	</if>
+	<if test="pid != null  ">
+		pid=#{pid},
+	</if>
+	<if test="sort != null  ">
+		sort=#{sort},
+	</if>
+	<if test="icon != null  and icon != '' ">
+		icon=#{icon},
+	</if>
+	<if test="cataLevel != null  ">
+		cata_level=#{cataLevel},
+	</if>
+	<if test="status != null  ">
+		status=#{status},
+	</if>
+	<if test="cruser != null  ">
+		cruser=#{cruser},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户商品分类 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_good_cate t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户商品分类 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_good_cate t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商户商品分类列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_good_cate t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户商品分类列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_good_cate t 
+	<include refid="Example_Where_Clause"/>
+	order by t.sort asc
+</select>
+
+</mapper>

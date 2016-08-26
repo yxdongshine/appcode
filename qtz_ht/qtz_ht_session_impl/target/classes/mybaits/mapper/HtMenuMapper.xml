@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.user.dao.HtMenuDao" >
+<!-- Result Map com.qtz.ht.user.vo.HtMenu-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.user.vo.HtMenu" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="pid"  property="pid"/> 
+	 <result column="menu_name"  property="menuName"/> 
+	 <result column="menu_url"  property="menuUrl"/> 
+	 <result column="menu_sort"  property="menuSort"/> 
+	 <result column="is_disable"  property="isDisable"/> 
+	 <result column="crtime"  property="crtime"/> 
+	 <result column="crname"  property="crname"/> 
+	 <result column="level"  property="level"/> 
+	 <result column="id"  property="id"/> 
+	 <result column="pname"  property="pname"/> 
+	 <result column="user_type"  property="userType"/> 
+	
+</resultMap>
+
+<!-- ht_menu table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.pid,t.menu_name,t.menu_url,t.menu_sort,t.is_disable,t.crtime,t.crname,t.level,t.id,t.pname,t.user_type
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="pid != null  ">
+		 and t.pid=#{pid}
+	</if>
+	<if test="menuName != null  and menuName != '' ">
+		 and t.menu_name=#{menuName}
+	</if>
+	<if test="menuUrl != null  and menuUrl != '' ">
+		 and t.menu_url=#{menuUrl}
+	</if>
+	<if test="menuSort != null  ">
+		 and t.menu_sort=#{menuSort}
+	</if>
+	<if test="isDisable != null  ">
+		 and t.is_disable=#{isDisable}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+	<if test="crname != null  and crname != '' ">
+		 and t.crname=#{crname}
+	</if>
+	<if test="level != null  ">
+		 and t.level=#{level}
+	</if>
+	<if test="id != null  ">
+		 and t.id=#{id}
+	</if>
+	<if test="pname != null  and pname != '' ">
+		 and t.pname=#{pname}
+	</if>
+	<if test="userType != null  ">
+		 and t.user_type=#{userType}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_menu(dm_id,pid,menu_name,menu_url,menu_sort,is_disable,crtime,crname,level,id,pname,user_type)
+ values(#{dmId},#{pid},#{menuName},#{menuUrl},#{menuSort},#{isDisable},#{crtime},#{crname},#{level},#{id},#{pname},#{userType})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_menu(dm_id,pid,menu_name,menu_url,menu_sort,is_disable,crtime,crname,level,id,pname,user_type) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.pid},#{item.menuName},#{item.menuUrl},#{item.menuSort},#{item.isDisable},#{item.crtime},#{item.crname},#{item.level},#{item.id},#{item.pname},#{item.userType}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_menu where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_menu where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_menu where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_menu set pid=#{pid},menu_name=#{menuName},menu_url=#{menuUrl},menu_sort=#{menuSort},is_disable=#{isDisable},crtime=#{crtime},crname=#{crname},level=#{level},id=#{id},pname=#{pname},user_type=#{userType} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_menu set 
+	<trim  suffixOverrides="," >
+	<if test="pid != null  ">
+		pid=#{pid},
+	</if>
+	<if test="menuName != null  and menuName != '' ">
+		menu_name=#{menuName},
+	</if>
+	<if test="menuUrl != null  and menuUrl != '' ">
+		menu_url=#{menuUrl},
+	</if>
+	<if test="menuSort != null  ">
+		menu_sort=#{menuSort},
+	</if>
+	<if test="isDisable != null  ">
+		is_disable=#{isDisable},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	<if test="crname != null  and crname != '' ">
+		crname=#{crname},
+	</if>
+	<if test="level != null  ">
+		level=#{level},
+	</if>
+	<if test="id != null  ">
+		id=#{id},
+	</if>
+	<if test="pname != null  and pname != '' ">
+		pname=#{pname},
+	</if>
+	<if test="userType != null  ">
+		user_type=#{userType},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户员工菜单 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_menu t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户员工菜单 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_menu t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商户员工菜单列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_menu t 
+	<include refid="Example_Where_Clause"/>
+	
+	<if test="orderCondition != null and orderCondition != ''" >
+      ${orderCondition}
+    </if>
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户员工菜单列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_menu t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

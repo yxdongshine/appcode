@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.good.dao.HtGoodCateAssoDao" >
+<!-- Result Map com.qtz.ht.good.vo.HtGoodCateAsso-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.good.vo.HtGoodCateAsso" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="busi_id"  property="busiId"/> 
+	 <result column="good_id"  property="goodId"/> 
+	 <result column="one_cate"  property="oneCate"/> 
+	 <result column="two_cate"  property="twoCate"/> 
+	 <result column="three_cate"  property="threeCate"/> 
+	
+</resultMap>
+
+<!-- ht_good_cate_asso table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.busi_id,t.good_id,t.one_cate,t.two_cate,t.three_cate
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="busiId != null  ">
+		 and t.busi_id=#{busiId}
+	</if>
+	<if test="goodId != null  ">
+		 and t.good_id=#{goodId}
+	</if>
+	<if test="oneCate != null  ">
+		 and t.one_cate=#{oneCate}
+	</if>
+	<if test="twoCate != null  ">
+		 and t.two_cate=#{twoCate}
+	</if>
+	<if test="threeCate != null  ">
+		 and t.three_cate=#{threeCate}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_good_cate_asso(dm_id,busi_id,good_id,one_cate,two_cate,three_cate)
+ values(#{dmId},#{busiId},#{goodId},#{oneCate},#{twoCate},#{threeCate})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_good_cate_asso(dm_id,busi_id,good_id,one_cate,two_cate,three_cate) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.busiId},#{item.goodId},#{item.oneCate},#{item.twoCate},#{item.threeCate}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_good_cate_asso where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_good_cate_asso where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_good_cate_asso where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_good_cate_asso set busi_id=#{busiId},good_id=#{goodId},one_cate=#{oneCate},two_cate=#{twoCate},three_cate=#{threeCate} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_good_cate_asso set 
+	<trim  suffixOverrides="," >
+	<if test="busiId != null  ">
+		busi_id=#{busiId},
+	</if>
+	<if test="goodId != null  ">
+		good_id=#{goodId},
+	</if>
+	<if test="oneCate != null  ">
+		one_cate=#{oneCate},
+	</if>
+	<if test="twoCate != null  ">
+		two_cate=#{twoCate},
+	</if>
+	<if test="threeCate != null  ">
+		three_cate=#{threeCate},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商家商品与分类关联 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_good_cate_asso t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商家商品与分类关联 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_good_cate_asso t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!--分类商品总数量 -->
+<select id="queryGoodsCount" resultType="java.lang.Integer">
+	select count(distinct t.good_id) from ht_good_cate_asso t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商家商品与分类关联列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_good_cate_asso t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商家商品与分类关联列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_good_cate_asso t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

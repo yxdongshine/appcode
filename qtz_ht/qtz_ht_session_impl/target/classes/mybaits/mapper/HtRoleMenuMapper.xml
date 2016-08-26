@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.user.dao.HtRoleMenuDao" >
+<!-- Result Map com.qtz.ht.user.vo.HtRoleMenu-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.user.vo.HtRoleMenu" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="role_id"  property="roleId"/> 
+	 <result column="menu_id"  property="menuId"/> 
+	 <result column="crname"  property="crname"/> 
+	 <result column="crtime"  property="crtime"/> 
+	
+</resultMap>
+
+<!-- ht_role_menu table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.role_id,t.menu_id,t.crname,t.crtime
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="roleId != null  ">
+		 and t.role_id=#{roleId}
+	</if>
+	<if test="menuId != null  ">
+		 and t.menu_id=#{menuId}
+	</if>
+	<if test="crname != null  and crname != '' ">
+		 and t.crname=#{crname}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_role_menu(dm_id,role_id,menu_id,crname,crtime)
+ values(#{dmId},#{roleId},#{menuId},#{crname},#{crtime})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_role_menu(dm_id,role_id,menu_id,crname,crtime) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.roleId},#{item.menuId},#{item.crname},#{item.crtime}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_role_menu where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_role_menu where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_role_menu where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_role_menu set role_id=#{roleId},menu_id=#{menuId},crname=#{crname},crtime=#{crtime} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_role_menu set 
+	<trim  suffixOverrides="," >
+	<if test="roleId != null  ">
+		role_id=#{roleId},
+	</if>
+	<if test="menuId != null  ">
+		menu_id=#{menuId},
+	</if>
+	<if test="crname != null  and crname != '' ">
+		crname=#{crname},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户角色菜单 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_role_menu t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户角色菜单 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_role_menu t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商户角色菜单列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_role_menu t 
+	<include refid="Example_Where_Clause"/>
+	
+	<if test="orderCondition != null and orderCondition != ''" >
+      ${orderCondition}
+    </if>
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户角色菜单列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_role_menu t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

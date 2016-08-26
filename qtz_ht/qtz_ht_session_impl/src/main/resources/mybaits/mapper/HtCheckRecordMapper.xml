@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.wallet.dao.HtCheckRecordDao" >
+<!-- Result Map com.qtz.ht.wallet.vo.HtCheckRecord-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.wallet.vo.HtCheckRecord" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="busi_id"  property="busiId"/> 
+	 <result column="applytime"  property="applytime"/> 
+	 <result column="userid"  property="userid"/> 
+	 <result column="amount"  property="amount"/> 
+	 <result column="bankname"  property="bankname"/> 
+	 <result column="bank_branch"  property="bankBranch"/> 
+	 <result column="bankno"  property="bankno"/> 
+	 <result column="account_type"  property="accountType"/> 
+	 <result column="cardholdername"  property="cardholdername"/> 
+	 <result column="status"  property="status"/> 
+	 <result column="source_id"  property="sourceId"/> 
+	 <result column="createby"  property="createby"/> 
+	 <result column="createon"  property="createon"/> 
+	 <result column="dealby"  property="dealby"/> 
+	 <result column="dealon"  property="dealon"/> 
+	 <result column="dealremark"  property="dealremark"/> 
+	 <result column="updateby"  property="updateby"/> 
+	 <result column="updateon"  property="updateon"/> 
+	 <result column="releasedate"  property="releasedate"/> 
+	
+</resultMap>
+
+<!-- ht_check_record table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.busi_id,t.applytime,t.userid,t.amount,t.bankname,t.bank_branch,t.bankno,t.account_type,t.cardholdername,t.status,t.source_id,t.createby,t.createon,t.dealby,t.dealon,t.dealremark,t.updateby,t.updateon,t.releasedate
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="busiId != null  ">
+		 and t.busi_id=#{busiId}
+	</if>
+	<if test="applytime != null  ">
+		 and t.applytime=#{applytime}
+	</if>
+	<if test="userid != null  ">
+		 and t.userid=#{userid}
+	</if>
+	<if test="amount != null  ">
+		 and t.amount=#{amount}
+	</if>
+	<if test="bankname != null  and bankname != '' ">
+		 and t.bankname=#{bankname}
+	</if>
+	<if test="bankno != null  and bankno != '' ">
+		 and t.bankno=#{bankno}
+	</if>
+	<if test="cardholdername != null  and cardholdername != '' ">
+		 and t.cardholdername=#{cardholdername}
+	</if>
+	<if test="status != null  ">
+		 and t.status=#{status}
+	</if>
+	<if test="sourceId != null  ">
+		 and t.source_id=#{sourceId}
+	</if>
+	<if test="createby != null  ">
+		 and t.createby=#{createby}
+	</if>
+	<if test="createon != null  ">
+		 and t.createon=#{createon}
+	</if>
+	<if test="dealby != null  ">
+		 and t.dealby=#{dealby}
+	</if>
+	<if test="dealon != null  ">
+		 and t.dealon=#{dealon}
+	</if>
+	<if test="dealremark != null  and dealremark != '' ">
+		 and t.dealremark=#{dealremark}
+	</if>
+	<if test="updateby != null  ">
+		 and t.updateby=#{updateby}
+	</if>
+	<if test="updateon != null  ">
+		 and t.updateon=#{updateon}
+	</if>
+	<if test="releasedate != null  ">
+		 and t.releasedate=#{releasedate}
+	</if>
+</sql>
+
+
+
+
+<sql id="Query_Where_Clause">
+ 	and t.source_id = t.dm_id
+	<if test="applytime != null  ">
+		 and t.applyTime &gt;= #{applytime } and  t.applyTime &lt;= #{applyEndTime}
+	</if>
+
+	<if test="amount != null  ">
+		 and t.amount &gt;= #{amount } and  t.applyTime &lt;= #{maxAmount}
+	</if>
+	
+	<if test="someInfo != null and someInfo != '' ">
+		and ( t.dm_id=#{someInfo} or t.userid=#{someInfo} or t.bankname like CONCAT('%', #{someInfo}, '%') or t.bankno like CONCAT('%', #{someInfo}, '%') or t.cardholdername like CONCAT('%', #{someInfo}, '%') )
+	</if>
+</sql>
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_check_record(dm_id,busi_id,applytime,userid,amount,bankname,bank_branch,bankno,account_type,cardholdername,status,source_id,createby,createon,dealby,dealon,dealremark,updateby,updateon,releasedate)
+ values(#{dmId},#{busiId},#{applytime},#{userid},#{amount},#{bankname},#{bankBranch},#{bankno},#{accountType},#{cardholdername},#{status},#{sourceId},#{createby},#{createon},#{dealby},#{dealon},#{dealremark},#{updateby},#{updateon},#{releasedate})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_check_record(dm_id,busi_id,applytime,userid,amount,bankname,bank_branch,bankno,account_type,cardholdername,status,source_id,createby,createon,dealby,dealon,dealremark,updateby,updateon,releasedate) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.busiId},#{item.applytime},#{item.userid},#{item.amount},#{item.bankname},#{item.bankBranch},#{item.bankno},#{item.accountType},#{item.cardholdername},#{item.status},#{item.sourceId},#{item.createby},#{item.createon},#{item.dealby},#{item.dealon},#{item.dealremark},#{item.updateby},#{item.updateon},#{item.releasedate}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete from ht_check_record where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete from ht_check_record where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")">
+	#{idItem}
+	</foreach>
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_check_record where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_check_record set busi_id=#{busiId},applytime=#{applytime},userid=#{userid},amount=#{amount},bankname=#{bankname},bank_branch=#{bankBranch},bankno=#{bankno},account_type=#{accountType},cardholdername=#{cardholdername},status=#{status},source_id=#{sourceId},createby=#{createby},createon=#{createon},dealby=#{dealby},dealon=#{dealon},dealremark=#{dealremark},updateby=#{updateby},updateon=#{updateon},releasedate=#{releasedate} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_check_record set 
+	<trim  suffixOverrides="," >
+	<if test="busiId != null  ">
+		busi_id=#{busiId},
+	</if>
+	<if test="applytime != null  ">
+		applytime=#{applytime},
+	</if>
+	<if test="userid != null  ">
+		userid=#{userid},
+	</if>
+	<if test="amount != null  ">
+		amount=#{amount},
+	</if>
+	<if test="bankname != null  and bankname != '' ">
+		bankname=#{bankname},
+	</if>
+	<if test="bankBranch != null  and bankBranch != '' ">
+		bank_branch=#{bankBranch},
+	</if>
+	<if test="bankno != null  and bankno != '' ">
+		bankno=#{bankno},
+	</if>
+	<if test="accountType != null  ">
+		account_type=#{accountType},
+	</if>
+	<if test="cardholdername != null  and cardholdername != '' ">
+		cardholdername=#{cardholdername},
+	</if>
+	<if test="status != null  ">
+		status=#{status},
+	</if>
+	<if test="sourceId != null  ">
+		source_id=#{sourceId},
+	</if>
+	<if test="createby != null  ">
+		createby=#{createby},
+	</if>
+	<if test="createon != null  ">
+		createon=#{createon},
+	</if>
+	<if test="dealby != null  ">
+		dealby=#{dealby},
+	</if>
+	<if test="dealon != null  ">
+		dealon=#{dealon},
+	</if>
+	<if test="dealremark != null  and dealremark != '' ">
+		dealremark=#{dealremark},
+	</if>
+	<if test="updateby != null  ">
+		updateby=#{updateby},
+	</if>
+	<if test="updateon != null  ">
+		updateon=#{updateon},
+	</if>
+	<if test="releasedate != null  ">
+		releasedate=#{releasedate},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户提现记录表 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_check_record t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户提现记录表 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_check_record t 
+	<where>
+	<include refid="Example_Where_Clause"/>
+	<include refid="Query_Where_Clause"/>
+	</where>
+</select>
+
+<!--根据商户编号 指定的开始时间 查询商户一天之内的提现记录-->
+<select id="findCountByTime" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_check_record t 
+	where t.busi_id= #{busiId} and t.applyTime &gt;= #{startTime } and  t.applyTime &lt;= #{endTime}
+</select>
+
+<!-- 分页查询商户提现记录表列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_check_record t 
+	<where>
+	<include refid="Example_Where_Clause"/>
+	<include refid="Query_Where_Clause"/>
+	</where>
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户提现记录表列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_check_record t 
+	<where>
+	<include refid="Example_Where_Clause"/>
+	</where>
+</select>
+
+</mapper>

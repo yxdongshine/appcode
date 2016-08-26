@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.good.dao.HtGoodsAlbumDao" >
+<!-- Result Map com.qtz.ht.good.vo.HtGoodsAlbum-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.good.vo.HtGoodsAlbum" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="good_id"  property="goodId"/> 
+	 <result column="photo_addr"  property="photoAddr"/> 
+	 <result column="sort"  property="sort"/> 
+	
+</resultMap>
+
+<!-- ht_goods_album table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.good_id,t.photo_addr,t.sort
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="goodId != null  ">
+		 and t.good_id=#{goodId}
+	</if>
+	<if test="photoAddr != null  and photoAddr != '' ">
+		 and t.photo_addr=#{photoAddr}
+	</if>
+	<if test="sort != null  ">
+		 and t.sort=#{sort}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_goods_album(dm_id,good_id,photo_addr,sort)
+ values(#{dmId},#{goodId},#{photoAddr},#{sort})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_goods_album(dm_id,good_id,photo_addr,sort) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.goodId},#{item.photoAddr},#{item.sort}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_goods_album where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_goods_album where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_goods_album where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_goods_album set good_id=#{goodId},photo_addr=#{photoAddr},sort=#{sort} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_goods_album set 
+	<trim  suffixOverrides="," >
+	<if test="goodId != null  ">
+		good_id=#{goodId},
+	</if>
+	<if test="photoAddr != null  and photoAddr != '' ">
+		photo_addr=#{photoAddr},
+	</if>
+	<if test="sort != null  ">
+		sort=#{sort},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户商品相册 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_goods_album t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户商品相册 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_goods_album t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商户商品相册列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_goods_album t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户商品相册列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_goods_album t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

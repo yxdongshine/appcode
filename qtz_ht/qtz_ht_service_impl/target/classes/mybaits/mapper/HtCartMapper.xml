@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.system.dao.HtCartDao" >
+<!-- Result Map com.qtz.ht.system.vo.HtFloorGoods-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.system.vo.HtCart" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="user_id"  property="userId"/> 
+	 <result column="good_id"  property="goodId"/> 
+	 <result column="good_number"  property="goodNumber"/> 
+	 <result column="change_time"  property="changeTime"/> 
+	
+</resultMap>
+
+<!-- ht_cart table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.user_id,t.good_id,t.good_number,t.change_time
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="userId != null  ">
+		 and t.user_id=#{userId}
+	</if>
+	<if test="goodId != null  ">
+		 and t.good_id=#{goodId}
+	</if>
+	<if test="goodNumber != null  ">
+		 and t.good_number=#{goodNumber}
+	</if>
+	<if test="changeTime != null  ">
+		 and t.change_time=#{changeTime}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_cart(dm_id,user_id,good_id,good_number,change_time)
+ values(#{dmId},#{userId},#{goodId},#{goodNumber},#{changeTime})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_cart(dm_id,user_id,good_id,good_number,change_time) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.userId},#{item.goodId},#{item.goodNumber},#{item.changeTime}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_cart where dm_id = #{dmId}
+</delete>
+<delete id="delAllbyUserIdAndGoodId" parameterType="Object">
+	delete 	 from ht_cart where user_id = #{userId} and good_id=#{goodId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_cart where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_cart where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_cart set user_id=#{userId},good_id=#{goodId},good_number=#{goodNumber},change_time=#{changeTime} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_cart set 
+	<trim  suffixOverrides="," >
+	<if test="userId != null  ">
+		user_id=#{userId},
+	</if>
+	<if test="goodId != null  ">
+		good_id=#{goodId},
+	</if>
+	<if test="goodNumber != null  ">
+		good_number=#{goodNumber},
+	</if>
+	<if test="changeTime != null  ">
+		change_time=#{changeTime},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 购物车 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_cart t where t.dm_id = #{dmId}
+</select>
+
+<!-- 购物车 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_cart t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询购物车列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_cart t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询购物车列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_cart t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz_ht_timer.task.dao.HtWalletDao" >
+<!-- Result Map com.qtz.ht.wallet.vo.HtWallet-->
+<resultMap id="BaseResultMap" type="com.qtz_ht_timer.task.vo.HtWallet" >
+	<result column="dm_id"  property="dmId"/> 
+	<result column="busi_id"  property="busiId"/> 
+	<result column="total_reconciliation"  property="totalReconciliation"/> 
+	<result column="total_payment_goods"  property="totalPaymentGoods"/> 
+	<result column="total_cash"  property="totalCash"/> 
+	<result column="total_refund"  property="totalRefund"/> 
+	<result column="pay_pwd"  property="payPwd"/> 
+	<result column="user_type"  property="userType"/> 
+	<result column="createBy"  property="createBy"/> 
+	<result column="createOn"  property="createOn"/> 
+	<result column="updateBy"  property="updateBy"/> 
+	<result column="updateOn"  property="updateOn"/> 
+	
+</resultMap>
+
+<!-- ht_wallet table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.busi_id,t.total_reconciliation,t.total_payment_goods,t.total_cash,t.total_refund,t.pay_pwd,t.user_type,t.createBy,t.createOn,t.updateBy,t.updateOn
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="busiId != null  ">
+		 and t.busi_id=#{busiId}
+	</if>
+	<if test="totalReconciliation != null  ">
+		 and t.total_reconciliation=#{totalReconciliation}
+	</if>
+	<if test="totalPaymentGoods != null  ">
+		 and t.total_payment_goods=#{totalPaymentGoods}
+	</if>
+	<if test="totalCash != null  ">
+		 and t.total_cash=#{totalCash}
+	</if>
+	<if test="totalRefund != null  ">
+		 and t.total_refund=#{totalRefund}
+	</if>
+	<if test="payPwd != null  and payPwd != '' ">
+		 and t.pay_pwd=#{payPwd}
+	</if>
+	<if test="userType != null  ">
+		 and t.user_type=#{userType}
+	</if>
+	<if test="createBy != null  ">
+		 and t.createBy=#{createBy}
+	</if>
+	<if test="createOn != null  ">
+		 and t.createOn=#{createOn}
+	</if>
+	<if test="updateBy != null  ">
+		 and t.updateBy=#{updateBy}
+	</if>
+	<if test="updateOn != null  ">
+		 and t.updateOn=#{updateOn}
+	</if>
+
+</where>
+</sql>
+   
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_wallet(dm_id,busi_id,total_reconciliation,total_payment_goods,total_cash,total_refund,pay_pwd,user_type,createBy,createOn,updateBy,updateOn)
+ values(#{dmId},#{busiId},#{totalReconciliation},#{totalPaymentGoods},#{totalCash},#{totalRefund},#{payPwd},#{userType},#{createBy},#{createOn},#{updateBy},#{updateOn})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_wallet(dm_id,busi_id,total_reconciliation,total_payment_goods,total_cash,total_refund,pay_pwd,user_type,createBy,createOn,updateBy,updateOn) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.busiId},#{item.totalReconciliation},#{item.totalPaymentGoods},#{item.totalCash},#{item.totalRefund},#{item.payPwd},#{item.userType},#{item.createBy},#{item.createOn},#{item.updateBy},#{item.updateOn}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete from ht_wallet where dm_id = #{dm_id}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete from ht_wallet where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete from ht_wallet where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_wallet set busi_id=#{busiId},total_reconciliation=#{totalReconciliation},total_payment_goods=#{totalPaymentGoods},total_cash=#{totalCash},total_refund=#{totalRefund},pay_pwd=#{payPwd},user_type=#{userType},createBy=#{createBy},createOn=#{createOn},updateBy=#{updateBy},updateOn=#{updateOn} where dm_id=#{dm_id}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_wallet set 
+	<trim  suffixOverrides="," >
+	<if test="busiId != null  ">
+		busi_id=#{busiId},
+	</if>
+	<if test="totalReconciliation != null  ">
+		total_reconciliation=#{totalReconciliation},
+	</if>
+	<if test="totalPaymentGoods != null  ">
+		total_payment_goods=#{totalPaymentGoods},
+	</if>
+	<if test="totalCash != null  ">
+		total_cash=#{totalCash},
+	</if>
+	<if test="totalRefund != null  ">
+		total_refund=#{totalRefund},
+	</if>
+	<if test="payPwd != null  and payPwd != '' ">
+		pay_pwd=#{payPwd},
+	</if>
+	<if test="userType != null  ">
+		user_type=#{userType},
+	</if>
+	<if test="createBy != null  ">
+		createBy=#{createBy},
+	</if>
+	<if test="createOn != null  ">
+		createOn=#{createOn},
+	</if>
+	<if test="updateBy != null  ">
+		updateBy=#{updateBy},
+	</if>
+	<if test="updateOn != null  ">
+		updateOn=#{updateOn},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 钱包表 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_wallet t where t.dm_id = #{dmId}
+</select>
+
+<!-- 根据id查询 钱包表 -->
+<select id="getWalletByUser"  resultMap="BaseResultMap" parameterType="Object">
+	select t.dm_id,t.busi_id,t.total_reconciliation,t.total_payment_goods,t.total_cash,t.total_refund,t.pay_pwd,t.user_type
+	 from ht_wallet t where t.user_type = #{userType} and t.busi_id = #{busiId}
+</select>
+
+<!-- 钱包表 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_wallet t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询钱包表列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_wallet t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询钱包表列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_wallet t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

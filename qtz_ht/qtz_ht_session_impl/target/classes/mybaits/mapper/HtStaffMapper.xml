@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.user.dao.HtStaffDao" >
+<!-- Result Map com.qtz.ht.user.vo.HtStaff-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.user.vo.HtStaff" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="account"  property="account"/> 
+	 <result column="pwd"  property="pwd"/> 
+	 <result column="name"  property="name"/> 
+	 <result column="mphone"  property="mphone"/> 
+	 <result column="sex"  property="sex"/> 
+	 <result column="phone"  property="phone"/> 
+	 <result column="id_card"  property="idCard"/> 
+	 <result column="entry_time"  property="entryTime"/> 
+	 <result column="department"  property="department"/> 
+	 <result column="position"  property="position"/> 
+	 <result column="persion_txt"  property="persionTxt"/> 
+	 <result column="job_on"  property="jobOn"/> 
+	 <result column="cr_user"  property="crUser"/> 
+	 <result column="status"  property="status"/> 
+	 <result column="crtime"  property="crtime"/> 
+	 <result column="contact"  property="contact"/> 
+	 <result column="contact_phone"  property="contactPhone"/> 
+	 <result column="place_origin"  property="placeOrigin"/> 
+	 <result column="current_residence"  property="currentResidence"/> 
+	 <result column="last_login"  property="lastLogin"/> 
+	
+</resultMap>
+
+<!-- ht_staff table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.account,t.pwd,t.name,t.mphone,t.sex,t.phone,t.id_card,t.entry_time,t.department,t.position,t.persion_txt,t.job_on,t.cr_user,t.status,t.crtime,t.contact,t.contact_phone,t.place_origin,t.current_residence,t.last_login
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="account != null  and account != '' ">
+		 and t.account=#{account}
+	</if>
+	<if test="pwd != null  and pwd != '' ">
+		 and t.pwd=#{pwd}
+	</if>
+	<if test="name != null  and name != '' ">
+		 and t.name=#{name}
+	</if>
+	<if test="mphone != null  and mphone != '' ">
+		 and t.mphone=#{mphone}
+	</if>
+	<if test="sex != null  ">
+		 and t.sex=#{sex}
+	</if>
+	<if test="phone != null  and phone != '' ">
+		 and t.phone=#{phone}
+	</if>
+	<if test="idCard != null  and idCard != '' ">
+		 and t.id_card=#{idCard}
+	</if>
+	<if test="entryTime != null  ">
+		 and t.entry_time=#{entryTime}
+	</if>
+	<if test="department != null  ">
+		 and t.department=#{department}
+	</if>
+	<if test="position != null  ">
+		 and t.position=#{position}
+	</if>
+	<if test="persionTxt != null  and persionTxt != '' ">
+		 and t.persion_txt=#{persionTxt}
+	</if>
+	<if test="jobOn != null  ">
+		 and t.job_on=#{jobOn}
+	</if>
+	<if test="crUser != null  ">
+		 and t.cr_user=#{crUser}
+	</if>
+	<if test="status != null  ">
+		 and t.status=#{status}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+	<if test="contact != null  and contact != '' ">
+		 and t.contact=#{contact}
+	</if>
+	<if test="contactPhone != null  and contactPhone != '' ">
+		 and t.contact_phone=#{contactPhone}
+	</if>
+	<if test="placeOrigin != null  and placeOrigin != '' ">
+		 and t.place_origin=#{placeOrigin}
+	</if>
+	<if test="currentResidence != null  and currentResidence != '' ">
+		 and t.current_residence=#{currentResidence}
+	</if>
+	<if test="lastLogin != null  ">
+		 and t.last_login=#{lastLogin}
+	</if>
+
+</where>
+</sql>
+
+
+<sql id="Example_Where_Clause_Like">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="account != null  and account != '' ">
+		 and t.account=#{account}
+	</if>
+	<if test="pwd != null  and pwd != '' ">
+		 and t.pwd=#{pwd}
+	</if>
+	<if test="name != null  and name != '' ">
+		 and t.name like CONCAT('%', #{name}, '%')
+	</if>
+	<if test="mphone != null  and mphone != '' ">
+		 and t.mphone=#{mphone}
+	</if>
+	<if test="sex != null  ">
+		 and t.sex=#{sex}
+	</if>
+	<if test="phone != null  and phone != '' ">
+		 and t.phone=#{phone}
+	</if>
+	<if test="idCard != null  and idCard != '' ">
+		 and t.id_card=#{idCard}
+	</if>
+	<if test="entryTime != null  ">
+		 and t.entry_time=#{entryTime}
+	</if>
+	<if test="department != null  ">
+		 and t.department=#{department}
+	</if>
+	<if test="position != null  ">
+		 and t.position=#{position}
+	</if>
+	<if test="persionTxt != null  and persionTxt != '' ">
+		 and t.persion_txt=#{persionTxt}
+	</if>
+	<if test="jobOn != null  ">
+		 and t.job_on=#{jobOn}
+	</if>
+	<if test="crUser != null  ">
+		 and t.cr_user=#{crUser}
+	</if>
+	<if test="status != null  ">
+		 and t.status=#{status}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+	<if test="contact != null  and contact != '' ">
+		 and t.contact=#{contact}
+	</if>
+	<if test="contactPhone != null  and contactPhone != '' ">
+		 and t.contact_phone=#{contactPhone}
+	</if>
+	<if test="placeOrigin != null  and placeOrigin != '' ">
+		 and t.place_origin=#{placeOrigin}
+	</if>
+	<if test="currentResidence != null  and currentResidence != '' ">
+		 and t.current_residence=#{currentResidence}
+	</if>
+	<if test="lastLogin != null  ">
+		 and t.last_login=#{lastLogin}
+	</if>
+
+</where>
+</sql>
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_staff(dm_id,account,pwd,name,mphone,sex,phone,id_card,entry_time,department,position,persion_txt,job_on,cr_user,status,crtime,contact,contact_phone,place_origin,current_residence,last_login)
+ values(#{dmId},#{account},#{pwd},#{name},#{mphone},#{sex},#{phone},#{idCard},#{entryTime},#{department},#{position},#{persionTxt},#{jobOn},#{crUser},#{status},#{crtime},#{contact},#{contactPhone},#{placeOrigin},#{currentResidence},#{lastLogin})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_staff(dm_id,account,pwd,name,mphone,sex,phone,id_card,entry_time,department,position,persion_txt,job_on,cr_user,status,crtime,contact,contact_phone,place_origin,current_residence,last_login) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.account},#{item.pwd},#{item.name},#{item.mphone},#{item.sex},#{item.phone},#{item.idCard},#{item.entryTime},#{item.department},#{item.position},#{item.persionTxt},#{item.jobOn},#{item.crUser},#{item.status},#{item.crtime},#{item.contact},#{item.contactPhone},#{item.placeOrigin},#{item.currentResidence},#{item.lastLogin}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_staff where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_staff where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_staff where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_staff set account=#{account},pwd=#{pwd},name=#{name},mphone=#{mphone},sex=#{sex},phone=#{phone},id_card=#{idCard},entry_time=#{entryTime},department=#{department},position=#{position},persion_txt=#{persionTxt},job_on=#{jobOn},cr_user=#{crUser},status=#{status},crtime=#{crtime},contact=#{contact},contact_phone=#{contactPhone},place_origin=#{placeOrigin},current_residence=#{currentResidence},last_login=#{lastLogin} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_staff set 
+	<trim  suffixOverrides="," >
+	<if test="account != null  and account != '' ">
+		account=#{account},
+	</if>
+	<if test="pwd != null  and pwd != '' ">
+		pwd=#{pwd},
+	</if>
+	<if test="name != null  and name != '' ">
+		name=#{name},
+	</if>
+	<if test="mphone != null  and mphone != '' ">
+		mphone=#{mphone},
+	</if>
+	<if test="sex != null  ">
+		sex=#{sex},
+	</if>
+	<if test="phone != null  and phone != '' ">
+		phone=#{phone},
+	</if>
+	<if test="idCard != null  and idCard != '' ">
+		id_card=#{idCard},
+	</if>
+	<if test="entryTime != null  ">
+		entry_time=#{entryTime},
+	</if>
+	<if test="department != null  ">
+		department=#{department},
+	</if>
+	<if test="position != null  ">
+		position=#{position},
+	</if>
+	<if test="persionTxt != null  and persionTxt != '' ">
+		persion_txt=#{persionTxt},
+	</if>
+	<if test="jobOn != null  ">
+		job_on=#{jobOn},
+	</if>
+	<if test="crUser != null  ">
+		cr_user=#{crUser},
+	</if>
+	<if test="status != null  ">
+		status=#{status},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	<if test="contact != null  and contact != '' ">
+		contact=#{contact},
+	</if>
+	<if test="contactPhone != null  and contactPhone != '' ">
+		contact_phone=#{contactPhone},
+	</if>
+	<if test="placeOrigin != null  and placeOrigin != '' ">
+		place_origin=#{placeOrigin},
+	</if>
+	<if test="currentResidence != null  and currentResidence != '' ">
+		current_residence=#{currentResidence},
+	</if>
+	<if test="lastLogin != null  ">
+		last_login=#{lastLogin},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 海淘员工表 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_staff t where t.dm_id = #{dmId}
+</select>
+
+<!-- 根据id查询 海淘员工表 -->
+<select id="getLoginVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_staff t where t.job_on=#{jobOn} and t.status=#{status} and t.pwd=#{password} and t.account=#{account}
+</select>
+
+<!-- 海淘员工表 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_staff t 
+	<include refid="Example_Where_Clause_Like"/>
+</select>
+
+<!-- 分页查询海淘员工表列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_staff t 
+	<include refid="Example_Where_Clause_Like"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询海淘员工表列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_staff t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

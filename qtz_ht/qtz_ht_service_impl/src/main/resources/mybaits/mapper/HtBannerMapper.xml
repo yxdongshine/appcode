@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.system.dao.HtBannerDao" >
+<!-- Result Map com.qtz.ht.system.vo.HtBanner-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.system.vo.HtBanner" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="link_url"  property="linkUrl"/> 
+	 <result column="sort"  property="sort"/> 
+	 <result column="status"  property="status"/> 
+	 <result column="icon"  property="icon"/> 
+	 <result column="version_type"  property="versionType"/> 
+	 <result column="client_type"  property="clientType"/> 
+	 <result column="prompt_text"  property="promptText"/> 
+	 <result column="notes"  property="notes"/> 
+	 <result column="cr_user_id"  property="crUserId"/> 
+	 <result column="crtime"  property="crtime"/> 
+	
+</resultMap>
+
+<!-- ht_banner table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.link_url,t.sort,t.status,t.icon,t.version_type,t.client_type,t.prompt_text,t.notes,t.cr_user_id,t.crtime
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="linkUrl != null  and linkUrl != '' ">
+		 and t.link_url=#{linkUrl}
+	</if>
+	<if test="sort != null  ">
+		 and t.sort=#{sort}
+	</if>
+	<if test="status != null  ">
+		 and t.status=#{status}
+	</if>
+	<if test="icon != null  and icon != '' ">
+		 and t.icon=#{icon}
+	</if>
+	<if test="versionType != null  ">
+		 and t.version_type=#{versionType}
+	</if>
+	<if test="clientType != null  ">
+		 and t.client_type=#{clientType}
+	</if>
+	<if test="promptText != null  and promptText != '' ">
+		 and t.prompt_text=#{promptText}
+	</if>
+	<if test="notes != null  and notes != '' ">
+		 and t.notes=#{notes}
+	</if>
+	<if test="crUserId != null  ">
+		 and t.cr_user_id=#{crUserId}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_banner(dm_id,link_url,sort,status,icon,version_type,client_type,prompt_text,notes,cr_user_id,crtime)
+ values(#{dmId},#{linkUrl},#{sort},#{status},#{icon},#{versionType},#{clientType},#{promptText},#{notes},#{crUserId},#{crtime})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_banner(dm_id,link_url,sort,status,icon,version_type,client_type,prompt_text,notes,cr_user_id,crtime) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.linkUrl},#{item.sort},#{item.status},#{item.icon},#{item.versionType},#{item.clientType},#{item.promptText},#{item.notes},#{item.crUserId},#{item.crtime}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_banner where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_banner where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_banner where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_banner set link_url=#{linkUrl},sort=#{sort},status=#{status},icon=#{icon},version_type=#{versionType},client_type=#{clientType},prompt_text=#{promptText},notes=#{notes},cr_user_id=#{crUserId},crtime=#{crtime} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_banner set 
+	<trim  suffixOverrides="," >
+	<if test="linkUrl != null  and linkUrl != '' ">
+		link_url=#{linkUrl},
+	</if>
+	<if test="sort != null  ">
+		sort=#{sort},
+	</if>
+	<if test="status != null  ">
+		status=#{status},
+	</if>
+	<if test="icon != null  and icon != '' ">
+		icon=#{icon},
+	</if>
+	<if test="versionType != null  ">
+		version_type=#{versionType},
+	</if>
+	<if test="clientType != null  ">
+		client_type=#{clientType},
+	</if>
+	<if test="promptText != null  and promptText != '' ">
+		prompt_text=#{promptText},
+	</if>
+	<if test="notes != null  and notes != '' ">
+		notes=#{notes},
+	</if>
+	<if test="crUserId != null  ">
+		cr_user_id=#{crUserId},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 横幅管理表 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_banner t where t.dm_id = #{dmId}
+</select>
+
+<!-- 横幅管理表 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_banner t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询横幅管理表列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_banner t 
+	<include refid="Example_Where_Clause"/>
+	
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询横幅管理表列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_banner t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 查询横幅管理表列表 -->
+<select id="findSpecifyFieldList" resultMap="BaseResultMap"  parameterType="Object">
+	select t.link_url,t.icon,t.prompt_text,t.notes from ht_banner t 
+	<where>
+	 and t.status=#{status} and (t.client_type=#{clientType} or t.client_type = 3) and t.version_type=#{versionType}
+	</where>
+	order by t.sort asc limit 5
+</select>
+
+</mapper>

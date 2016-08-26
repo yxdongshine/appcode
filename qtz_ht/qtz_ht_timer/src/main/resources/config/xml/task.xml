@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	 
+<!-- 买家申请钱包自动解冻功能  每天固定时间解冻操作 -->
+	<task beanId="thawAutoHandleImpl"  name="钱包自动解冻功能" exeTime="00"/>
+
+	 
+	 
+</root>

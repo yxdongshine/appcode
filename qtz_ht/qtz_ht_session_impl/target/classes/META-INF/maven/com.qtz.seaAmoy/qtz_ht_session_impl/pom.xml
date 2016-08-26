@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.qtz.seaAmoy</groupId>
+    <artifactId>qtz_ht</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>qtz_ht_session_impl</artifactId>
+  <name>qtz_ht_session_impl</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+   <dependency>
+       <groupId>com.qtz.seaAmoy</groupId>
+ 	   <artifactId>qtz_ht_service_api</artifactId>
+       <version>0.0.1-SNAPSHOT</version>
+       <type>jar</type>
+    </dependency>
+   <dependency>
+       <groupId>com.qtz.seaAmoy</groupId>
+ 	   <artifactId>qtz_ht_session_api</artifactId>
+       <version>0.0.1-SNAPSHOT</version>
+       <type>jar</type>
+    </dependency>
+    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+    <dependency>
+    
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- mysql的数据库驱动包 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- 数据库连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+ 	</dependencies>
+    <build>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[2.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+											<goal>unpack</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- 指定jdk 版本 -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!--copy依賴jar至lib -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.7</version><!--$NO-MVN-MAN-VER$ -->
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<excludeTransitive>false</excludeTransitive>
+							<stripVersion>false</stripVersion>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8</version>
+				<!-- 配置导出配置 -->
+				<configuration>
+					<outputDirectory>target\javadoc</outputDirectory>
+					<reportOutputDirectory>target\javadoc</reportOutputDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>site</phase>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- id mvn package appassembler:assemble -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<configuration>
+					<repositoryLayout>flat</repositoryLayout>
+					<repositoryName>lib</repositoryName>
+					<!--配置文件夹 -->
+					<configurationDirectory>config</configurationDirectory>
+					<!--配置文件 打包范围 -->
+					<configurationSourceDirectory>src/main/resources</configurationSourceDirectory>
+					<copyConfigurationDirectory>true</copyConfigurationDirectory>
+					<includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+					<binPrefix>startup</binPrefix>
+					<!--打包到那个文件夹 ${project.build.directory} -->
+					<assembleDirectory>E:/temps/hjs_service</assembleDirectory>
+					<!--jdk 内存配置 -->
+					<extraJvmArguments>-Xms768m -Xmx768m -XX:PermSize=128m
+						-XX:MaxPermSize=256m -XX:NewSize=192m -XX:MaxNewSize=384m</extraJvmArguments>
+					<binFileExtensions>
+						<unix>.sh</unix>
+					</binFileExtensions>
+					<platforms>
+						<platform>windows</platform>
+						<platform>unix</platform>
+					</platforms>
+					<programs>
+						<program>
+							<!--主线程 启动类 -->
+							<mainClass>com.qtz.ht.SessionServer</mainClass>
+							<name>startup</name>
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <!--默认激活开发配制-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>src/main/filters/dev.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>test</id>
+            <build>
+                <filters>
+                    <filter>src/main/filters/test.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <build>
+                <filters>
+                    <filter>src/main/filters/pro.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
+</project>

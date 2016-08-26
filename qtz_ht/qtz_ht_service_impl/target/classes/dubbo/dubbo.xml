@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://code.alibabatech.com/schema/dubbo 
+    http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+   ">
+ 
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="qtz_ht_service"  />
+    
+ 	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="192.168.40.9:2181" />
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="-1"  />
+   	<!-- 用户钱包 -->
+	<dubbo:reference interface="com.qtz.dm.userwallet.service.UserWalletService" id="userWalletServiceImpl"  version="1.0"/>
+	<!-- 订单配置 -->
+	<dubbo:reference interface="com.qtz.orig.order.service.OrigOrderService" id="origOrderServiceImpl" version="1.0" check="false"/>
+   	<!-- 用户 -->
+	<dubbo:reference interface="com.qtz.ht.user.service.HtBusinessService" id="htBusinessServiceImpl"  version="1.0"/>
+	<dubbo:reference interface="com.qtz.ht.user.service.HtBusinessLogService" id="htBusinessLogServiceImpl"  version="1.0"/>
+	<dubbo:reference interface="com.qtz.ht.user.service.HtMenuService" id="htMenuServiceImpl"  version="1.0"/>
+	<dubbo:reference interface="com.qtz.ht.user.service.HtRoleMenuService" id="htRoleMenuServiceImpl"  version="1.0"/>
+	<dubbo:reference interface="com.qtz.ht.user.service.HtRoleService" id="htRoleServiceImpl"  version="1.0"/>
+	<dubbo:reference interface="com.qtz.ht.user.service.HtUserRoleService" id="htUserRoleServiceImpl"  version="1.0"/>
+	<dubbo:reference interface="com.qtz.ht.user.service.HtUserService" id="htUserServiceImpl"  version="1.0"/>
+   	<!-- 钱包 -->
+	<dubbo:reference interface="com.qtz.ht.wallet.service.HtBankCardService" id="htBankCardServiceImpl"  version="1.0"/>
+    <dubbo:reference interface="com.qtz.ht.wallet.service.HtCheckRecordService" id="htCheckRecordServiceImpl" version="1.0"/>
+    <dubbo:reference interface="com.qtz.ht.wallet.service.HtPlatformWalletLogService" id="htPlatformWalletLogServiceImpl" version="1.0"/>
+    <dubbo:reference interface="com.qtz.ht.wallet.service.HtStaffPaymentFlowService" id="htStaffPaymentFlowServiceImpl" version="1.0"/>
+    <dubbo:reference interface="com.qtz.ht.wallet.service.HtWalletService" id="htWalletServiceImpl" version="1.0"/>
+	
+    <!-- 声明需要暴露的服务接口 -->
+    <!-- 订单 -->
+    <dubbo:service interface="com.qtz.ht.order.service.HtOrderService" ref="htOrderServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <!-- 抢车活动服务 -->
+    <dubbo:service interface="com.qtz.ht.order.service.TransferActivityService" ref="transferActivityServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <!-- 商品 -->
+    <dubbo:service interface="com.qtz.ht.good.service.HtGoodCateService" ref="htGoodCateServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.good.service.HtGoodDescService" ref="htGoodDescServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.good.service.HtGoodLogService" ref="htGoodLogServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.good.service.HtGoodsAlbumService" ref="htGoodsAlbumServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.good.service.HtStaffGoodsService" ref="htStaffGoodsServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.good.service.HtGoodCateAssoService" ref="htGoodCateAssoServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <!-- 系统 -->
+    <dubbo:service interface="com.qtz.ht.system.service.HtBannerService" ref="htBannerServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.system.service.HtActivityService" ref="htActivityServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.system.service.HtFloorGoodsService" ref="htFloorGoodsServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.system.service.HtFloorService" ref="htFloorServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.system.service.CategoryService" ref="categoryServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    <dubbo:service interface="com.qtz.ht.system.service.HtCartService" ref="htCartServiceImpl" version="1.0" timeout="3000" retries="0"/>
+    
+    
+</beans>

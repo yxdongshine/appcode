@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.good.dao.HtStaffGoodsDao" >
+<!-- Result Map com.qtz.ht.good.vo.HtStaffGoods-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.good.vo.HtStaffGoods" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="good_name"  property="goodName"/> 
+<!-- 	 <result column="simple_name"  property="simpleName"/>  -->
+	 <result column="busi_id"  property="busiId"/> 
+	 <result column="good_code"  property="goodCode"/> 
+	 <result column="brand_id"  property="brandId"/> 
+<!-- 	 <result column="supply_price"  property="supplyPrice"/>  -->
+<!-- 	 <result column="cost_price"  property="costPrice"/>  -->
+	 <result column="price"  property="price"/> 
+	 <result column="final_Price"  property="finalPrice"/>
+	 <result column="activity_price"  property="activityPrice"/> 
+<!-- 	 <result column="sett_discount"  property="settDiscount"/>  -->
+	 <result column="net_weight"  property="netWeight"/> 
+	 <result column="gross_weight"  property="grossWeight"/> 
+	 <result column="pack_method"  property="packMethod"/> 
+	 <result column="goods_number"  property="goodsNumber"/> 
+	 <result column="bar_code"  property="barCode"/> 
+	 <result column="sales"  property="sales"/>
+	 <result column="limited"  property="limited"/>
+	 <result column="short_desc"  property="shortDesc"/>
+	 <result column="audit_status"  property="auditStatus"/> 
+	 <result column="status"  property="status"/>
+	 <result column="main_picture"  property="mainPicture"/> 
+	 <result column="is_coupon"  property="isCoupon"/> 
+	 <result column="shelves_time"  property="shelvesTime"/> 
+	 <result column="cruser"  property="cruser"/> 
+	 <result column="crtime"  property="crtime"/> 
+</resultMap>
+
+<!-- ht_staff_goods table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.good_name,t.busi_id,t.good_code,t.brand_id,t.price,t.activity_price,t.net_weight,t.gross_weight,t.pack_method,t.goods_number,t.bar_code,t.sales,t.limited,t.short_desc,t.audit_status,t.status,t.main_picture,t.is_coupon,t.shelves_time,t.cruser,t.crtime,t.final_Price
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="goodName != null  and goodName != '' ">
+		 and t.good_name  like CONCAT('%',#{goodName},'%')
+	</if>
+<!-- 	<if test="simpleName != null  and simpleName != '' "> -->
+<!-- 		 and t.simple_name=#{simpleName} -->
+<!-- 	</if> -->
+	<if test="busiId != null  ">
+		 and t.busi_id=#{busiId}
+	</if>
+	<if test="goodCode != null  and goodCode != '' ">
+		 and t.good_code=#{goodCode}
+	</if>
+	<if test="brandId != null  ">
+		 and t.brand_id=#{brandId}
+	</if>
+<!-- 	<if test="supplyPrice != null  "> -->
+<!-- 		 and t.supply_price=#{supplyPrice} -->
+<!-- 	</if> -->
+<!-- 	<if test="costPrice != null  "> -->
+<!-- 		 and t.cost_price=#{costPrice} -->
+<!-- 	</if> -->
+	<if test="price != null  ">
+		 and t.price=#{price}
+	</if>
+	<if test="activityPrice != null  ">
+		 and t.activity_price=#{activityPrice}
+	</if>
+<!-- 	<if test="settDiscount != null  "> -->
+<!-- 		 and t.sett_discount=#{settDiscount} -->
+<!-- 	</if> -->
+	<if test="netWeight != null  ">
+		 and t.net_weight=#{netWeight}
+	</if>
+	<if test="grossWeight != null  ">
+		 and t.gross_weight=#{grossWeight}
+	</if>
+	<if test="packMethod != null  and packMethod != '' ">
+		 and t.pack_method=#{packMethod}
+	</if>
+	<if test="goodsNumber != null  and goodsNumber != '' ">
+		 and t.goods_number=#{goodsNumber}
+	</if>
+	<if test="barCode != null  and barCode != '' ">
+		 and t.bar_code=#{barCode}
+	</if>
+	<if test="sales != null  ">
+		 and t.sales=#{sales}
+	</if>
+	<if test="limited != null  ">
+		 and t.limited=#{limited}
+	</if>
+	<if test="shortDesc != null  and shortDesc != '' ">
+		 and t.short_desc=#{shortDesc}
+	</if>
+	<if test="auditStatus != null  ">
+		 and t.audit_status=#{auditStatus}
+	</if>
+	<if test="status != null  ">
+		 and t.status=#{status}
+	</if>
+	<if test="mainPicture != null  and mainPicture != '' ">
+		 and t.main_picture=#{mainPicture}
+	</if>
+	<if test="isCoupon != null  ">
+		 and t.is_coupon=#{isCoupon}
+	</if>
+	<if test="shelvesTime != null  ">
+		 and t.shelves_time=#{shelvesTime}
+	</if>
+	<if test="cruser != null  ">
+		 and t.cruser=#{cruser}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+	<if test="finalPrice != null  ">
+		 and t.final_Price=#{finalPrice}
+	</if>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_staff_goods(dm_id,good_name,busi_id,good_code,brand_id,price,activity_price,net_weight,gross_weight,
+  pack_method,goods_number,bar_code,sales,limited,short_desc,audit_status,status,main_picture,is_coupon,shelves_time,cruser,crtime,final_Price)
+ values(#{dmId},#{goodName},#{busiId},#{goodCode},#{brandId},#{price},#{activityPrice},#{netWeight},#{grossWeight},
+ #{packMethod},#{goodsNumber},#{barCode},#{sales},#{limited},#{shortDesc},#{auditStatus},#{status},#{mainPicture},#{isCoupon},#{shelvesTime},
+ #{cruser},#{crtime},#{finalPrice})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_staff_goods(dm_id,good_name,busi_id,good_code,brand_id,price,activity_price,net_weight,gross_weight,
+  pack_method,goods_number,bar_code,sales,limited,short_desc,audit_status,status,main_picture,is_coupon,shelves_time,cruser,crtime,final_Price)
+   values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.goodName},#{item.busiId},#{item.goodCode},#{item.brandId},#{item.price},#{item.activityPrice},
+	  	 #{item.netWeight},#{item.grossWeight},#{item.packMethod},#{item.goodsNumber},#{item.barCode},#{item.sales},
+	  	 #{item.limited},#{item.shortDesc},#{item.auditStatus},#{item.status},#{item.mainPicture},#{item.isCoupon},#{item.shelvesTime},
+	  	 #{item.cruser},#{item.crtime},#{item.finalPrice}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete from ht_staff_goods where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete from ht_staff_goods where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete from ht_staff_goods where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_staff_goods set good_name=#{goodName},busi_id=#{busiId},good_code=#{goodCode},brand_id=#{brandId},
+  price=#{price},activity_price=#{activityPrice},net_weight=#{netWeight},
+  gross_weight=#{grossWeight},pack_method=#{packMethod},goods_number=#{goodsNumber},bar_code=#{barCode},sales=#{sales},limited=#{limited},
+  short_desc=#{shortDesc},audit_status=#{auditStatus},status=#{status},main_picture=#{mainPicture},is_coupon=#{isCoupon},
+  shelves_time=#{shelvesTime},cruser=#{cruser},crtime=#{crtime},final_Price=#{finalPrice} where dm_id=#{dmId}
+ </update>
+<!-- 根据商品id，扣除商品库存-->  
+ <update id="modstock" parameterType="Object" >
+  update ht_staff_goods set sales = coalesce(sales,0) - coalesce(#{sales},0) where dm_id=#{dmId}
+ </update>
+ 
+ <!-- 根据商品id，扣除商品库存-->  
+ <update id="addstock" parameterType="Object" >
+  update ht_staff_goods set sales = coalesce(sales,0) + coalesce(#{sales},0) where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_staff_goods set 
+	<trim  suffixOverrides="," >
+	<if test="goodName != null  and goodName != '' ">
+		good_name=#{goodName},
+	</if>
+<!-- 	<if test="simpleName != null  and simpleName != '' "> -->
+<!-- 		simple_name=#{simpleName}, -->
+<!-- 	</if> -->
+	<if test="busiId != null  ">
+		busi_id=#{busiId},
+	</if>
+	<if test="goodCode != null  and goodCode != '' ">
+		good_code=#{goodCode},
+	</if>
+	<if test="brandId != null  ">
+		brand_id=#{brandId},
+	</if>
+<!-- 	<if test="supplyPrice != null  "> -->
+<!-- 		supply_price=#{supplyPrice}, -->
+<!-- 	</if> -->
+<!-- 	<if test="costPrice != null  "> -->
+<!-- 		cost_price=#{costPrice}, -->
+<!-- 	</if> -->
+	<if test="price != null  ">
+		price=#{price},
+	</if>
+	<if test="activityPrice != null  ">
+		activity_price=#{activityPrice},
+	</if>
+<!-- 	<if test="settDiscount != null  "> -->
+<!-- 		sett_discount=#{settDiscount}, -->
+<!-- 	</if> -->
+	<if test="netWeight != null  ">
+		net_weight=#{netWeight},
+	</if>
+	<if test="grossWeight != null  ">
+		gross_weight=#{grossWeight},
+	</if>
+	<if test="packMethod != null  and packMethod != '' ">
+		pack_method=#{packMethod},
+	</if>
+	<if test="goodsNumber != null  and goodsNumber != '' ">
+		goods_number=#{goodsNumber},
+	</if>
+	<if test="barCode != null  and barCode != '' ">
+		bar_code=#{barCode},
+	</if>
+	<if test="sales != null  ">
+		sales=#{sales},
+	</if>
+	<if test="limited != null  ">
+		limited=#{limited},
+	</if>
+	<if test="shortDesc != null  and shortDesc != '' ">
+		short_desc=#{shortDesc},
+	</if>
+	<if test="auditStatus != null  ">
+		audit_status=#{auditStatus},
+	</if>
+	<if test="status != null  ">
+		status=#{status},
+	</if>
+	<if test="mainPicture != null  and mainPicture != '' ">
+		main_picture=#{mainPicture},
+	</if>
+	<if test="isCoupon != null  ">
+		is_coupon=#{isCoupon},
+	</if>
+	<if test="shelvesTime != null  ">
+		shelves_time=#{shelvesTime},
+	</if>
+	<if test="cruser != null  ">
+		cruser=#{cruser},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	<if test="finalPrice != null  ">
+	     final_Price=#{finalPrice}
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 商户商品操作记录 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_staff_goods t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户商品操作记录 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_staff_goods t 
+	<where>
+	<if test="startPrice != null  and startPrice != '' ">
+		 and t.price <![CDATA[ >=]]> #{startPrice}
+	</if>
+	<if test="endPrice != null  and endPrice != '' ">
+		 and t.price <![CDATA[ <=]]> #{endPrice}
+	</if>
+	<if test="startTime != null  and startTime != '' ">
+		 and t.crtime <![CDATA[ >=]]> #{startTime}
+	</if>
+	<if test="endTime != null  and endTime != '' ">
+		 and t.crtime <![CDATA[ <=]]> #{endTime}
+	</if>
+	<if test="shelvesStartTime != null  and shelvesStartTime != '' ">
+		 and t.shelvesTime <![CDATA[ >=]]> #{shelvesStartTime}
+	</if>
+	<if test="shelvesEndTime != null  and shelvesEndTime != '' ">
+		 and t.shelvesTime <![CDATA[ <=]]> #{shelvesEndTime}
+	</if>
+	<include refid="Example_Where_Clause"/>
+	</where>
+</select>
+
+<!-- 分页查询商户商品操作记录列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_staff_goods t 
+	<where>
+	<if test="startPrice != null  and startPrice != '' ">
+		 and t.price <![CDATA[ >=]]> #{startPrice}
+	</if>
+	<if test="endPrice != null  and endPrice != '' ">
+		 and t.price <![CDATA[ <=]]> #{endPrice}
+	</if>
+	<if test="startTime != null  and startTime != '' ">
+		 and t.crtime <![CDATA[ >=]]> #{startTime}
+	</if>
+	<if test="endTime != null  and endTime != '' ">
+		 and t.crtime <![CDATA[ <=]]> #{endTime}
+	</if>
+	<if test="shelvesStartTime != null  and shelvesStartTime != '' ">
+		 and t.shelvesTime <![CDATA[ >=]]> #{shelvesStartTime}
+	</if>
+	<if test="shelvesEndTime != null  and shelvesEndTime != '' ">
+		 and t.shelvesTime <![CDATA[ <=]]> #{shelvesEndTime}
+	</if>
+	<include refid="Example_Where_Clause"/>
+	</where>
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户商品列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_staff_goods t 
+	<where>
+	<include refid="Example_Where_Clause"/>
+	</where>
+</select>
+<!-- 查询手机端首页商户商品列表 -->
+<select id="findSpecifyFieldList" resultMap="BaseResultMap"  parameterType="Object">
+	select t.dm_id,t.good_name,t.simple_name,t.good_code,round(rand() * 1000,0) goods_number,t.activity_price,t.price,t.main_picture 
+	from ht_staff_goods t 
+	<where>
+	and t.status=#{status} and t.busi_id != 1001
+	</where>
+	order by t.shelves_time desc
+</select>
+<!-- 查询抢购活动商品列表 -->
+<select id="getPanicBuyingGoodsList" resultMap="BaseResultMap"  parameterType="Object">
+	select t.dm_id,t.good_name,t.simple_name,t.good_code,t.activity_price,t.price,t.main_picture,sales
+	from ht_staff_goods t 
+	<where>
+	and t.status=#{status} and t.busi_id = 1001
+	</where>
+	order by t.shelves_time desc
+</select>
+
+<!-- 查询商户商品上架时间前面5条记录列表 -->
+<select id="findShelvesTop5List" resultMap="BaseResultMap"  parameterType="Object">
+    select t.dm_id,t.good_name,t.simple_name,t.good_code,round(rand() * 1000,0) goods_number,t.activity_price,t.price,t.main_picture
+	from ht_staff_goods t 
+	<where>
+	    t.status= 1 and t.audit_status = 3 
+		order by t.shelves_time desc
+		limit 4
+	</where>
+</select>
+
+<!-- 查询商品Id集合商品列表 -->
+<select id="findListByGoodsId" resultMap="BaseResultMap" parameterType="java.util.List">
+	select t.dm_id,t.good_name,t.simple_name,t.busi_id,t.good_code,t.activity_price,t.price,t.goods_number,t.sales,t.limited,t.main_picture,t.is_coupon,t.audit_status,t.status,t.final_Price
+	from ht_staff_goods t where t.dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach>
+</select>
+
+<!-- 查询商品Id集合  创建时间逆序的 商品列表  -->
+<select id="findListByGoodsIdAndCrtime" resultMap="BaseResultMap" parameterType="java.util.List">
+	select t.dm_id,t.good_name,t.busi_id,t.good_code,t.activity_price,t.price,t.goods_number,t.sales,t.limited,t.main_picture,t.is_coupon,t.audit_status,t.status,t.final_Price
+	from ht_staff_goods t where t.dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach>
+	order by t.crtime DESC
+</select>
+
+<select id="queryUnclassifiedGoods" resultMap="BaseResultMap" parameterType="Object">
+	select t.* 
+	from ht_staff_goods t
+	<where>
+	 t.dm_id not in (select good_id from ht_good_cate_asso )
+	 </where>
+	 <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+<select id="queryUnclassifiedCount" resultType="java.lang.Integer" >
+	select count(*) from ht_staff_goods t
+	<where>
+	 t.dm_id not in (select good_id from ht_good_cate_asso )
+	 </where>
+	
+</select>
+</mapper>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.wallet.dao.HtPlatformWalletLogDao" >
+<!-- Result Map com.qtz.ht.wallet.vo.HtPlatformWalletLog-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.wallet.vo.HtPlatformWalletLog" >
+	 <result column="dm_id"  property="dmId"/> 
+	 <result column="busi_id"  property="busiId"/> 
+	 <result column="order_id"  property="orderId"/> 
+	 <result column="amount"  property="amount"/> 
+	 <result column="income_type"  property="incomeType"/> 
+	 <result column="payment_type"  property="paymentType"/> 
+	 <result column="platform_points"  property="platformPoints"/> 
+	 <result column="income_time"  property="incomeTime"/> 
+	 <result column="release_time"  property="releaseTime"/> 
+	 <result column="reco_status"  property="recoStatus"/> 
+	 <result column="crtime"  property="crtime"/> 
+	
+</resultMap>
+
+<!-- ht_platform_wallet_log table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.busi_id,t.order_id,t.amount,t.income_type,t.payment_type,t.platform_points,t.income_time,t.release_time,t.reco_status,t.crtime
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="busiId != null  ">
+		 and t.busi_id=#{busiId}
+	</if>
+	<if test="orderId != null  ">
+		 and t.order_id=#{orderId}
+	</if>
+	<if test="amount != null  ">
+		 and t.amount=#{amount}
+	</if>
+	<if test="incomeType != null  ">
+		 and t.income_type=#{incomeType}
+	</if>
+	<if test="paymentType != null  ">
+		 and t.payment_type=#{paymentType}
+	</if>
+	<if test="platformPoints != null  ">
+		 and t.platform_points=#{platformPoints}
+	</if>
+	<if test="incomeTime != null  ">
+		 and t.income_time=#{incomeTime}
+	</if>
+	<if test="releaseTime != null  ">
+		 and t.release_time=#{releaseTime}
+	</if>
+	<if test="recoStatus != null  ">
+		 and t.reco_status=#{recoStatus}
+	</if>
+	<if test="crtime != null  ">
+		 and t.crtime=#{crtime}
+	</if>
+
+</where>
+</sql>
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_platform_wallet_log(dm_id,busi_id,order_id,amount,income_type,payment_type,platform_points,income_time,release_time,reco_status,crtime)
+ values(#{dmId},#{busiId},#{orderId},#{amount},#{incomeType},#{paymentType},#{platformPoints},#{incomeTime},#{releaseTime},#{recoStatus},#{crtime})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_platform_wallet_log(dm_id,busi_id,order_id,amount,income_type,payment_type,platform_points,income_time,release_time,reco_status,crtime) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.busiId},#{item.orderId},#{item.amount},#{item.incomeType},#{item.paymentType},#{item.platformPoints},#{item.incomeTime},#{item.releaseTime},#{item.recoStatus},#{item.crtime}
+	  )
+	  </foreach> 
+</insert>
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_platform_wallet_log where dm_id = #{dmId}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_platform_wallet_log where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_platform_wallet_log where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!-- 根据条件删除记录 -->
+<delete id="delDataByCondition" parameterType="Object">
+	delete 	 from ht_platform_wallet_log 
+	<where>
+		<if test="orderId != null  ">
+		  and order_id=#{orderId}
+	    </if>
+		<if test="busiId != null  ">
+			 and busi_id=#{busiId}
+		</if>
+		<if test="paymentType != null  ">
+		  and payment_type=#{paymentType}
+	    </if>
+   </where>
+</delete>
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_platform_wallet_log set busi_id=#{busiId},order_id=#{orderId},amount=#{amount},income_type=#{incomeType},payment_type=#{paymentType},platform_points=#{platformPoints},income_time=#{incomeTime},release_time=#{releaseTime},reco_status=#{recoStatus},crtime=#{crtime} where dm_id=#{dmId}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_platform_wallet_log set 
+	<trim  suffixOverrides="," >
+	<if test="busiId != null  ">
+		busi_id=#{busiId},
+	</if>
+	<if test="orderId != null  ">
+		order_id=#{orderId},
+	</if>
+	<if test="amount != null  ">
+		amount=#{amount},
+	</if>
+	<if test="incomeType != null  ">
+		income_type=#{incomeType},
+	</if>
+	<if test="paymentType != null  ">
+		payment_type=#{paymentType},
+	</if>
+	<if test="platformPoints != null  ">
+		platform_points=#{platformPoints},
+	</if>
+	<if test="incomeTime != null  ">
+		income_time=#{incomeTime},
+	</if>
+	<if test="releaseTime != null  ">
+		release_time=#{releaseTime},
+	</if>
+	<if test="recoStatus != null  ">
+		reco_status=#{recoStatus},
+	</if>
+	<if test="crtime != null  ">
+		crtime=#{crtime},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+ 
+<!-- 根据id查询 平台钱包流水 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_platform_wallet_log t where t.dm_id = #{dmId}
+</select>
+
+<!-- 平台钱包流水 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_platform_wallet_log t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询平台钱包流水列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_platform_wallet_log t 
+	<include refid="Example_Where_Clause"/>
+	
+<!-- 	<if test="orderCondition != null and orderCondition != ''" > -->
+<!--       ${orderCondition} -->
+<!--     </if> -->
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询平台钱包流水列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_platform_wallet_log t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>

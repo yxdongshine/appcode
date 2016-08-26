@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qtz.ht.wallet.dao.HtBankCardDao" >
+<!-- Result Map com.qtz.ht.wallet.vo.HtBankCard-->
+<resultMap id="BaseResultMap" type="com.qtz.ht.wallet.vo.HtBankCard" >
+	<result column="dm_id"  property="dmId"/> 
+	<result column="busi_id"  property="busiId"/> 
+	<result column="cardNum"  property="cardNum"/> 
+	<result column="bankName"  property="bankName"/> 
+	<result column="bank_branch"  property="bankBranch"/> 
+	<result column="account_province"  property="accountProvince"/> 
+	<result column="account_city"  property="accountCity"/> 
+	<result column="account_type"  property="accountType"/> 
+	<result column="cardholder"  property="cardholder"/> 
+	<result column="cr_user"  property="crUser"/> 
+	<result column="cr_time"  property="crTime"/> 
+	
+</resultMap>
+
+<!-- ht_bank_card table all fields -->
+<sql id="Base_Column_List" >
+	 t.dm_id,t.busi_id,t.cardNum,t.bankName,t.bank_branch,t.account_province,t.account_city,t.account_type,t.cardholder,t.cr_user,t.cr_time
+</sql>
+
+<!-- 查询条件 -->
+<sql id="Example_Where_Clause">
+<where>
+	<if test="dmId != null  ">
+		 and t.dm_id=#{dmId}
+	</if>
+	<if test="busiId != null  ">
+		 and t.busi_id=#{busiId}
+	</if>
+	<if test="cardNum != null  and cardNum != '' ">
+		 and t.cardNum=#{cardNum}
+	</if>
+	<if test="bankName != null  and bankName != '' ">
+		 and t.bankName=#{bankName}
+	</if>
+	<if test="bankBranch != null  and bankBranch != '' ">
+		 and t.bank_branch=#{bankBranch}
+	</if>
+	<if test="accountProvince != null  ">
+		 and t.account_province=#{accountProvince}
+	</if>
+	<if test="accountCity != null  ">
+		 and t.account_city=#{accountCity}
+	</if>
+	<if test="accountType != null  ">
+		 and t.account_type=#{accountType}
+	</if>
+	<if test="cardholder != null  and cardholder != '' ">
+		 and t.cardholder=#{cardholder}
+	</if>
+	<if test="crUser != null  ">
+		 and t.cr_user=#{crUser}
+	</if>
+	<if test="crTime != null  ">
+		 and t.cr_time=#{crTime}
+	</if>
+
+</where>
+</sql>
+   
+
+<!-- 插入记录 [说明：如果要返回当前对象，需要如下配置：<insert id="addVo" parameterType="Object" useGeneratedKeys="true" keyProperty="id">] -->
+<insert id="addVo" parameterType="Object" >
+  insert into ht_bank_card(dm_id,busi_id,cardNum,bankName,bank_branch,account_province,account_city,account_type,cardholder,cr_user,cr_time)
+ values(#{dmId},#{busiId},#{cardNum},#{bankName},#{bankBranch},#{accountProvince},#{accountCity},#{accountType},#{cardholder},#{crUser},#{crTime})
+</insert>
+<!--批量插入记录 -->
+<insert id="addList" parameterType="java.util.List">
+  insert into ht_bank_card(dm_id,busi_id,cardNum,bankName,bank_branch,account_province,account_city,account_type,cardholder,cr_user,cr_time) values
+   <foreach collection="list" item="item" index="index" separator=",">
+	  (
+	  	 #{item.dmId},#{item.busiId},#{item.cardNum},#{item.bankName},#{item.bankBranch},#{item.accountProvince},#{item.accountCity},#{item.accountType},#{item.cardholder},#{item.crUser},#{item.crTime}
+	  )
+	  </foreach> 
+</insert>
+
+
+<!-- 删除记录 -->
+<delete id="delId" parameterType="Object">
+	delete 	 from ht_bank_card where dm_id = #{dm_id}
+</delete>
+<!--批量删除-->
+<delete id="delIds" parameterType="java.lang.String">
+	delete 	 from ht_bank_card where dm_id in 
+	<foreach item="idItem" collection="array" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+<!--批量删除-->
+<delete id="delList" parameterType="java.util.List">
+	delete 	 from ht_bank_card where dm_id in 
+	<foreach item="idItem" collection="list" index="index" open="(" separator="," close=")"> 
+	#{idItem}
+	</foreach> 
+</delete>
+
+<!-- 根据id，修改记录-->  
+ <update id="modVo" parameterType="Object" >
+  update ht_bank_card set busi_id=#{busiId},cardNum=#{cardNum},bankName=#{bankName},bank_branch=#{bankBranch},account_province=#{accountProvince},account_city=#{accountCity},account_type=#{accountType},cardholder=#{cardholder},cr_user=#{crUser},cr_time=#{crTime} where dm_id=#{dm_id}
+ </update>
+ <!-- 修改记录，只修改只不为空的字段 -->
+<update id="modVoNotNull" parameterType="Object" >
+	update ht_bank_card set 
+	<trim  suffixOverrides="," >
+	<if test="busiId != null  ">
+		busi_id=#{busiId},
+	</if>
+	<if test="cardNum != null  and cardNum != '' ">
+		cardNum=#{cardNum},
+	</if>
+	<if test="bankName != null  and bankName != '' ">
+		bankName=#{bankName},
+	</if>
+	<if test="bankBranch != null  and bankBranch != '' ">
+		bank_branch=#{bankBranch},
+	</if>
+	<if test="accountProvince != null  ">
+		account_province=#{accountProvince},
+	</if>
+	<if test="accountCity != null  ">
+		account_city=#{accountCity},
+	</if>
+	<if test="accountType != null  ">
+		account_type=#{accountType},
+	</if>
+	<if test="cardholder != null  and cardholder != '' ">
+		cardholder=#{cardholder},
+	</if>
+	<if test="crUser != null  ">
+		cr_user=#{crUser},
+	</if>
+	<if test="crTime != null  ">
+		cr_time=#{crTime},
+	</if>
+	</trim> where dm_id=#{dmId}
+</update>
+
+
+ 
+<!-- 根据id查询 商户银行卡信息表 -->
+<select id="findVo"  resultMap="BaseResultMap" parameterType="Object">
+	select <include refid="Base_Column_List" /> 
+	 from ht_bank_card t where t.dm_id = #{dmId}
+</select>
+
+<!-- 商户银行卡信息表 列表总数-->
+<select id="queryCount" resultType="java.lang.Integer"  parameterType="Object">
+	select count(1) from ht_bank_card t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+<!-- 分页查询商户银行卡信息表列表 -->
+<select id="queryList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_bank_card t 
+	<include refid="Example_Where_Clause"/>
+	
+	
+	
+	
+	<if test="orderCondition != null and orderCondition != ''" >
+      ${orderCondition}
+    </if>
+    <if test="mysqlQueryCondition != null and mysqlQueryCondition != ''" >
+       ${mysqlQueryCondition}
+    </if>
+</select>
+
+<!-- 查询商户银行卡信息表列表 -->
+<select id="findList" resultMap="BaseResultMap"  parameterType="Object">
+	select 
+	<include refid="Base_Column_List"/>
+	from ht_bank_card t 
+	<include refid="Example_Where_Clause"/>
+</select>
+
+</mapper>
